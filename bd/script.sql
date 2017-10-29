@@ -2,18 +2,11 @@ CREATE DATABASE batteryQuestions;
 
 USE batteryQuestions;
 
-CREATE TABLE categoria(
-    id INT AUTO_INCREMENT,
-    nombre VARCHAR(5000),
-    PRIMARY KEY(id)
-);
-
 CREATE TABLE pregunta(
     id INT AUTO_INCREMENT,
     valor VARCHAR(5000),
-    categoria INT,
-    PRIMARY KEY(id),
-    FOREIGN KEY(categoria) REFERENCES categoria(id)
+    tags VARCHAR(5000),
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE infoExtra(
@@ -33,7 +26,6 @@ CREATE TABLE respuesta(
     FOREIGN KEY(pregunta) REFERENCES pregunta(id)
 );
 
-SELECT * FROM categoria;
 SELECT * FROM pregunta;
 SELECT * FROM infoExtra;
 SELECT * FROM respuesta;

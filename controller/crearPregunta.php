@@ -1,27 +1,40 @@
 <?php
-$pregunta = $_REQUEST["pregunta"];
-$infoExtra = $_REQUEST["infoExtra"];
+require_once("../model/Data.php");
 
-echo $pregunta;
-echo "<br>";
+$pregunta       = $_REQUEST["pregunta"];
+$tags           = $_REQUEST["tags"];
+$infoExtra      = $_REQUEST["infoExtra"];
+$cantResp       = $_REQUEST["cantRes"];
+$indexCorrecta  = $_REQUEST["correcta"];
+
+$preg = new Pregunta();
+$preg->setValor($pregunta);
+$preg->setTags($tags);
+
 if($infoExtra){
-    echo "Existe información extra<br>";
+    // Existe info extra
 }else{
-    echo "No existe información extra<br>";
+    // No existe info extra
 }
 
-$cantResp = $_REQUEST["cantRes"];
-$indexCorrecta = $_REQUEST["correcta"];
+$listRespuestas = array();
 
 for($i =0; $i<$cantResp ; $i++){
-    $valor_resp = $_REQUEST["valor_$i"];
-    echo $valor_resp." ";
+    $resp = new Respuesta();
+    
+    $resp->setValor($_REQUEST["valor_$i"]);
 
-    if($i == $indexCorrecta){
-        echo " [Respuesta correcta]<br>";
-    }else{
-        echo " [Respuesta incorrecta]<br>";
-    }
+    if($i == $indexCorrecta)
+        $resp->setCorrecta("true");
+    else
+        $resp->setCorrecta("false");
+    
+    array_push($listRespuestas, $resp);
 }
 
+$d = new Data();
+
+$d->crearPregunta($preg, $listRespuestas);
+
+header("location: ../view/crearPreguntas.php");
 ?>

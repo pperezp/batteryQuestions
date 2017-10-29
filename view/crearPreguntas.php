@@ -11,6 +11,9 @@
             Pregunta:
             <textarea name="pregunta"></textarea>
             <br>
+            Tags: 
+            <textarea name="tags"></textarea>
+            <br>
             <input type="checkbox" id="infoExtra" name="infoExtra" onclick="generarInfo()">Información extra
             <div id="genInfo">
 
@@ -48,5 +51,6 @@
                 }
             }
         </script>
+        <a href='index.php'>Volver</a>
     </body>
 </html>

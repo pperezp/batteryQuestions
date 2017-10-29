@@ -5,10 +5,10 @@ class Conexion{
     private $user;
     private $pass;
 
-    public function __construct($bdName, $user, $pass){
+    public function __construct($bdName){
         $this->bdName = $bdName;
-        $this->user = $user;
-        $this->pass = $pass;
+        $this->user = "root";
+        $this->pass = "123456";
     }
 
     public function conectar(){

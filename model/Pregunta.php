@@ -2,7 +2,7 @@
 class Pregunta{
     private $id;
     private $valor;
-    private $categoria;
+    private $tags;
 
     public function getId(){
         return $this->id;
@@ -12,8 +12,8 @@ class Pregunta{
         return $this->valor;
     }
 
-    public function getCategoria(){
-        return $this->categoria;
+    public function getTags(){
+        return $this->tags;
     }
 
     public function setId($id){
@@ -24,8 +24,8 @@ class Pregunta{
         $this->valor = $valor;
     }
 
-    public function setCategoria($categoria){
-        $this->categoria = $categoria;
+    public function setTags($tags){
+        $this->tags = $tags;
     }
 }
 ?>
