@@ -11,6 +11,9 @@
             <li>
                 <a href='crearPreguntas.php'>Crear Preguntas</a>
             </li>
+            <li>
+                <a href='listadoPreguntas.php'>Ver todas las preguntas</a>
+            </li>
         </ul>
     </body>
 </html>

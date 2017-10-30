@@ -9,9 +9,16 @@ CREATE TABLE pregunta(
     PRIMARY KEY(id)
 );
 
+/*
+A BLOB can be 65535 bytes (64 KB) maximum.
+If you need more consider using:
+
+a MEDIUMBLOB for 16777215 bytes (16 MB)
+a LONGBLOB for 4294967295 bytes (4 GB).*/
+
 CREATE TABLE infoExtra(
     id INT AUTO_INCREMENT,
-    archivo BLOB,
+    archivo MEDIUMBLOB, /*16 mb como máximo*/
     nombre VARCHAR(1000),
     peso BIGINT,
     tipo VARCHAR(100),
@@ -32,6 +39,10 @@ CREATE TABLE respuesta(
 SELECT * FROM pregunta;
 SELECT * FROM infoExtra;
 SELECT * FROM respuesta;
+
+DELETE FROM respuesta;
+DELETE FROM infoExtra;
+DELETE FROM pregunta;
 
 DROP DATABASE batteryQuestions;
 
