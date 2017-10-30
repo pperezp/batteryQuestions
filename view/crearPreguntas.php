@@ -7,7 +7,7 @@
     </head>
     <body>
         <h1>Crear pregunta</h1>
-        <form action="../controller/crearPregunta.php" method="POST">
+        <form enctype="multipart/form-data" action="../controller/crearPregunta.php" method="POST">
             Pregunta:
             <textarea name="pregunta"></textarea>
             <br>
@@ -15,9 +15,7 @@
             <textarea name="tags"></textarea>
             <br>
             <input type="checkbox" id="infoExtra" name="infoExtra" onclick="generarInfo()">Información extra
-            <div id="genInfo">
-
-            </div>
+            <div id="genInfo"></div>
             <br>
             Respuestas: <input type="number" id="cantRes" name="cantRes" onkeyup="generarRespuestas()">
             <br>

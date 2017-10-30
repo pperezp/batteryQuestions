@@ -12,9 +12,21 @@ $preg->setValor($pregunta);
 $preg->setTags($tags);
 
 if($infoExtra){
-    // Existe info extra
+    $ie = new InfoExtra();
+
+    $nombre = $_FILES["fileInfoExtra"]["name"];
+    $tipo   = $_FILES["fileInfoExtra"]["type"];
+    $size   = $_FILES["fileInfoExtra"]["size"];
+    $tmp    = $_FILES['fileInfoExtra']['tmp_name'];
+
+    $binario = addslashes(fread(fopen($tmp, "rb"), filesize($tmp)));
+
+    $ie->archivo    = $binario;
+    $ie->nombre     = $nombre;
+    $ie->peso       = $size;
+    $ie->tipo       = $tipo;
 }else{
-    // No existe info extra
+    $ie = null;
 }
 
 $listRespuestas = array();
@@ -34,7 +46,7 @@ for($i =0; $i<$cantResp ; $i++){
 
 $d = new Data();
 
-$d->crearPregunta($preg, $listRespuestas);
+$d->crearPregunta($preg, $listRespuestas, $ie);
 
 header("location: ../view/crearPreguntas.php");
 ?>
