@@ -13,7 +13,7 @@ class Data{
     public function crearPregunta($preg, $listResp){
         $this->c->conectar();
         
-       $this->c->ejecutar("INSERT INTO pregunta VALUES(NULL, '".$preg->getValor()."', '".$preg->getTags()."')");
+        $this->c->ejecutar("INSERT INTO pregunta VALUES(NULL, '".$preg->getValor()."', '".$preg->getTags()."')");
         
         $idPreg = $this->getMaxIdPregunta();
 
