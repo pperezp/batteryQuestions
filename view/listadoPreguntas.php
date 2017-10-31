@@ -23,7 +23,13 @@
                 <tr>
                     <td><?php echo $p->id; ?></td>
                     <td><?php echo $p->valor; ?></td>
-                    <td><?php echo $p->tags; ?></td>
+                    <td>
+                    <?php
+                    foreach($d->getTagsBy($p->id) as $t){
+                        echo "[".$t->nombre."] ";
+                    }
+                    ?>
+                    </td>
                     <td><a href='verPregunta.php?id=<?php echo $p->id; ?>'>Ver</a></td>
                 </tr>
         <?php } ?>

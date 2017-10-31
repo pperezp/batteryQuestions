@@ -12,7 +12,17 @@
             <textarea name="pregunta"></textarea>
             <br>
             Tags:
-            <textarea name="tags"></textarea>
+            <input list="tags" name="tags"></textarea>
+            <!--<datalist id="tags">
+                <?php
+                /*require_once("../model/Data.php");
+                $d = new Data();
+
+                foreach($d->getTags() as $t){
+                    echo "<option value='".$t->nombre."'>";
+                }*/
+                ?> 
+            </datalist>-->
             <br>
             <input type="checkbox" id="infoExtra" name="infoExtra" onclick="generarInfo()">Información extra
             <div id="genInfo"></div>

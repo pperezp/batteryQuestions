@@ -2,10 +2,22 @@ CREATE DATABASE batteryQuestions;
 
 USE batteryQuestions;
 
+CREATE TABLE tag(
+    id INT AUTO_INCREMENT,
+    nombre VARCHAR(2000),
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE pregunta(
     id INT AUTO_INCREMENT,
     valor VARCHAR(5000),
-    tags VARCHAR(5000),
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE preguntaTag(
+    id INT AUTO_INCREMENT,
+    pregunta INT,
+    tag INT,
     PRIMARY KEY(id)
 );
 
@@ -36,7 +48,10 @@ CREATE TABLE respuesta(
     FOREIGN KEY(pregunta) REFERENCES pregunta(id)
 );
 
+
+SELECT * FROM tag;
 SELECT * FROM pregunta;
+SELECT * FROM preguntaTag;
 SELECT * FROM infoExtra;
 SELECT * FROM respuesta;
 
