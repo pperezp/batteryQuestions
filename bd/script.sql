@@ -71,3 +71,14 @@ CREATE TABLE test(
     PRIMARY KEY(id)
 );
 /*Para subir archivos (test)*/
+
+/*Saber que tags tiene una pregunta en especifico*/
+SELECT
+    t.id,
+    t.nombre
+FROM
+    tag t
+    INNER JOIN preguntaTag pt ON t.id = pt.tag
+    INNER JOIN pregunta p ON p.id = pt.pregunta
+WHERE
+    p.id = 1;    

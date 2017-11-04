@@ -48,7 +48,7 @@ class Data{
         /*Recorro todos los nameTag*/
         foreach($tags as $tagName){
             // Veo si esta en la bd, si es asi, entrego el objeto
-            $tagName = trim($tagName);
+            $tagName = strlower(trim($tagName));
             $tag = $this->getTag($tagName);
 
             // si no se encuentra en la BD
@@ -194,6 +194,8 @@ class Data{
     public function getTag($tagName){
         $this->c->conectar();
 
+        $tagName = strtolower($tagName);
+
         $rs = $this->c->ejecutar("SELECT * FROM tag WHERE nombre = '$tagName'");
 
         $t = null;
@@ -237,7 +239,7 @@ class Data{
         $tags = array();
 
         $this->c->conectar();
-        $rs = $this->c->ejecutar("SELECT * FROM tag");
+        $rs = $this->c->ejecutar("SELECT * FROM tag ORDER BY nombre");
 
         while($obj = $rs->fetch_object()){
             array_push($tags, $obj);
