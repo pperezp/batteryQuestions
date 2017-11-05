@@ -3,7 +3,6 @@ require_once("../model/Data.php");
 
 $pregunta       = $_REQUEST["pregunta"];
 $tags           = $_REQUEST["tags"];
-$infoExtra      = $_REQUEST["infoExtra"];
 $cantResp       = $_REQUEST["cantRes"];
 $indexCorrecta  = $_REQUEST["correcta"];
 
@@ -11,9 +10,9 @@ $preg = new Pregunta();
 $preg->valor = $pregunta;
 $preg->tags  = $tags;
 
-if($infoExtra){
+if(isset($_FILES["fileInfoExtra"]["name"])){
     $ie = new InfoExtra();
-
+    
     $nombre = $_FILES["fileInfoExtra"]["name"];
     $tipo   = $_FILES["fileInfoExtra"]["type"];
     $size   = $_FILES["fileInfoExtra"]["size"];

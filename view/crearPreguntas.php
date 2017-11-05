@@ -4,50 +4,32 @@
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- Imports de Bootstrap 4 -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
-            crossorigin="anonymous">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-            crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
-            crossorigin="anonymous"></script>
-        <!-- Imports de Bootstrap 4 -->
+        <?php require_once("../model/Bootstrap.php");?>
     </head>
     <body>
         <div class="container">
             <hr><h1>Crear pregunta</h1><hr>
             <form enctype="multipart/form-data" action="../controller/crearPregunta.php" method="POST">
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="pregunta">Pregunta:</label>
                         <textarea class="form-control" name="pregunta"></textarea>
                     </div>
                     
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="tags">Tags:</label>
                         <textarea class="form-control" name="tags"></textarea>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="form-group col-md-1">
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" 
-                            data-target="#divTags" aria-expanded="false" 
-                            aria-controls="divTags">
-                            Ver tags
-                        </button>
-                    </div>
-
-                    <?php 
-                    require_once("../model/Data.php");
-                    $d = new Data();
-                    $tags = $d->getTags();
-                    $cantTags = sizeof($tags);
-                    ?>
-                    <div class="collapse form-group col-md-11" id="divTags" >
+                    <div class="form-group col-md-4">
                         <label for="cboTags">Listado de tags:</label>
-                        <select id="cboTags" class="custom-select">
+                        <?php 
+                        require_once("../model/Data.php");
+                        $d = new Data();
+                        $tags = $d->getTags();
+                        $cantTags = sizeof($tags);
+                        ?>
+                        <select id="cboTags" name="cboTags" class="custom-select form-control">
                             <?php
                             $letActual = "";
                             $nuevaLetra = true;
@@ -71,32 +53,48 @@
                             }
                             /*Cargando el combo con los tags*/
                             ?>
-                            </select>
+                        </select>
                     </div>
                 </div>
                 
                 <div class="row">
-                    <div class="col-md-2">
-                        <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" id="infoExtra" name="infoExtra" onclick="generarInfo()">
-                            Información extra:
-                        </label>
-                    </div>
-                    <div id="genInfo" class="col-md-10"></div>
-                </div>
+                    <div class="col-md-6">
+                        <label for="fileInfoExtra">Información extra:</label>
 
-                <div class="row">
-                    <div class="col-md-3">
+                        <!-- Image file with image preview -->
+                        <script src="../js/scriptInputFile.js"></script>
+                        <link type="text/css" rel="stylesheet" href="../css/estilo.css">
+                        
+                        <div class="input-group image-preview">
+                            <input type="text" class="form-control image-preview-filename" disabled="disabled"> <!-- don't give a name === doesn't send on POST/GET -->
+                            <span class="input-group-btn">
+                                <!-- image-preview-clear button -->
+                                <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
+                                    <span class="glyphicon glyphicon-remove"></span> Limpiar
+                                </button>
+                                <!-- image-preview-input -->
+                                <div class="btn btn-default image-preview-input">
+                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                    <span class="image-preview-input-title">Examinar</span>
+                                    <input type="file" accept="image/png, image/jpeg, image/gif" name="fileInfoExtra"/> <!-- rename it -->
+                                </div>
+                            </span>
+                        </div>
+                        <!-- Image file with image preview -->
+                    </div>
+                    <div class="form-group  col-md-6">
                         <label for="cantRes">Respuestas:</label>
-                        <input class="form-control" type="number" id="cantRes" name="cantRes" onkeyup="generarRespuestas()">
+                        <input placeholder="Cantidad de respuestas" class="form-control" type="number" id="cantRes" name="cantRes" onkeyup="generarRespuestas()">
                     </div>
                 </div>
-
                 
-                <div class="row" id="respuestas">
+                <div class="row" id="respuestas"></div>
+                
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" value="Guardar pregunta" class="btn btn-success">
+                    </div>
                 </div>
-                
-                <input type="submit" value="Guardar pregunta" class="btn btn-s">
             </form>
 
             <script>
@@ -108,25 +106,12 @@
 
                     divRespuestas.innerHTML = "";
                     for(var i = 0; i < cantRes ; i++){
-                        divRespuestas.innerHTML += "<div class='col-md-3'>";
-                            divRespuestas.innerHTML += "<input type='radio' name='correcta' value='"+i+"'>";
-                            divRespuestas.innerHTML += "<textarea class='form-control' name='valor_"+i+"'></textarea>";
-                        divRespuestas.innerHTML += "</div>";
+                        divRespuestas.innerHTML += "<div class='col-md-3 form-group'><input type='radio' name='correcta' value='"+i+"'>¿Correcta?<textarea class='form-control' name='valor_"+i+"'></textarea></div>";
                     }
                 }
 
-                function generarInfo(){
-                    var infoExtra = document.getElementById("infoExtra");
-
-                    if(infoExtra.checked){
-                        genInfo.innerHTML = "<input type='file' name='fileInfoExtra'>";
-                    }else{
-                        genInfo.innerHTML = "";
-                    }
-                }
+                
             </script>
-
-           
 
             <a href='index.php'>Volver</a>
         </div>

@@ -48,7 +48,7 @@ class Data{
         /*Recorro todos los nameTag*/
         foreach($tags as $tagName){
             // Veo si esta en la bd, si es asi, entrego el objeto
-            $tagName = strlower(trim($tagName));
+            $tagName = strtolower(trim($tagName));
             $tag = $this->getTag($tagName);
 
             // si no se encuentra en la BD
