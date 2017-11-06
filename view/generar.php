@@ -7,6 +7,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script>
 
+        var i = 0;
         function addTag(e, value){
             if(e.keyCode == 13 && value != ""){
                 $.ajax({
@@ -22,8 +23,13 @@
                             var generado = document.getElementById("generado");
                             
                             if(!generado.innerHTML.includes(value)){
-                                generado.innerHTML += "<option value='"+tagId+"'>"+value+"</option>";
+                                generado.innerHTML += "<input type='hidden' name='id_"+i+"' value='"+tagId+"'>";
+                                generado.innerHTML += "<input type='text' value='"+value+"' readonly>";
                                 men.innerHTML = "";
+                                i++;
+
+                                var cantTags = document.getElementById("cantTags");
+                                cantTags.value = i;
                             }else{
                                 men.innerHTML = "El tag ya está en la lista";
                             }
@@ -53,13 +59,15 @@
             ?>
         </datalist>
 
-        <form id="formTags" action="" method="post">
+        <form id="formTags" action="../controller/generarPreguntas.php" method="post">
             <input name="cantidad" placeholder="Cantidad de preguntas:">
+            <input type="hidden" value="0" name="cantTags" id="cantTags">
             <br>
-            <select id="generado" size="9"></select>
+            <div id="generado"></div>
             <br>
             <input type="submit" value="Generar">
         </form>
         <div id="mensaje"></div>
+        <a href="index.php">Volver</a>
     </body>
 </html>

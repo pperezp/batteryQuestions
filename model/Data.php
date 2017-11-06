@@ -249,5 +249,44 @@ class Data{
 
         return $tags;
     }
+
+    public function getPreguntasByTags($tags){
+        $query = "
+            SELECT
+                p.id,
+                p.valor
+            FROM
+                preguntaTag pt
+                INNER JOIN pregunta p ON p.id = pt.pregunta
+                INNER JOIN tag t ON t.id = pt.tag
+            WHERE 
+        ";
+        
+        $cant = count($tags);
+        $i = 0;
+        foreach($tags as $t){
+            $query .= "t.id = $t ";
+            $i++;
+
+            if($i != $cant){
+                $query .= "OR ";
+            }
+        }
+
+        $query .= "GROUP BY p.id;";
+
+
+        $preguntas = array();
+        $this->c->conectar();
+        $rs = $this->c->ejecutar($query);
+
+        while($obj = $rs->fetch_object()){
+            array_push($preguntas, $obj);
+        }
+
+        $this->c->desconectar();
+
+        return $preguntas;
+    }
 }
 ?>
