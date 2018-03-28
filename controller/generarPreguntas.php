@@ -23,9 +23,11 @@ foreach($preguntas as $p){
 
     $respuestas = $d->getRespuestasBy($p->id);
 
-    $cont = 1;
+    $ascii = 97; // el ascii de la letra 'a'
     foreach($respuestas as $r){
-        echo "$cont) ".$r->valor."<br>";
+        $letra = chr($ascii);
+        echo "$letra) ".$r->valor."<br>";
+        $ascii++;
     }
     echo "<br>";
 }

@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="form-group col-md-4">
-                        <label for="cboTags">Listado de tags:</label>
+                        <label for="cboTags">Listado de tags: (Sólo para ver, no afecta)</label>
                         <?php 
                         require_once("../model/Data.php");
                         $d = new Data();
